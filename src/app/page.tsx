@@ -194,14 +194,8 @@ export default function Home() {
             </div>
           </div>
 
-          {activeNav === "Phase Planning" ? <PhasePlanning /> : null}\n\n          {activeNav !== "Overview" && activeNav !== "APQP Projects" && activeNav !== "Phase Planning" && (
-            <div className="panel" style={{padding:25,marginBottom:20}}>
-              <div style={{display:"flex",gap:12,alignItems:"flex-start"}}>
-                <div className="kpi-icon" style={{background:"#edf3ff",color:"#3268e8"}}><Sparkles size={18}/></div>
-                <div><div className="panel-title">{activeNav} module — planned workspace</div><p className="subtitle" style={{lineHeight:1.7,maxWidth:680}}>This module is represented in the product roadmap, but its full workflow is not implemented yet. The current working area below shows the shared project portfolio demo. Project changes are held in page state and reset when the page is refreshed.</p><button className="btn" onClick={()=>setActiveNav("Overview")} style={{marginTop:10}}>Return to overview <ArrowRight size={14}/></button></div>
-              </div>
-            </div>
-          )}
+          {activeNav === "Phase Planning" && <PhasePlanning />}
+          {![ "Overview", "APQP Projects", "Phase Planning" ].includes(activeNav) && <WorkspaceModule activeNav={activeNav} onNotify={notify} />}
 
           {(activeNav === "Overview" || activeNav === "APQP Projects") && <>\n          <div className="filter-row">
             <div className="filter-chip"><SlidersHorizontal size={13}/><strong>Filters</strong></div>
@@ -307,7 +301,7 @@ export default function Home() {
             </section>
           </div>
 
-          <div className="footer-note"><AlertCircle size={14}/> Demo interface with illustrative records only. No authentication, database persistence, or approved quality workflows are enabled yet.</div>\n          </>}\n          {activeNav === "Phase Planning" && <PhasePlanning />}\n          {![ "Overview", "APQP Projects", "Phase Planning" ].includes(activeNav) && <WorkspaceModule activeNav={activeNav} onNotify={notify} />}\n
+          <div className="footer-note"><AlertCircle size={14}/> Dashboard sample data is illustrative. Use the authenticated API and configured database for persistent records; complete deployment validation before production use.</div>\n          </>}\n          {activeNav === "Phase Planning" && <PhasePlanning />}\n          {![ "Overview", "APQP Projects", "Phase Planning" ].includes(activeNav) && <WorkspaceModule activeNav={activeNav} onNotify={notify} />}\n
         </div>
       </main>
 
