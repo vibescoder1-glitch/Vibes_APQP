@@ -7,7 +7,7 @@ import {
   LayoutDashboard, Menu, Plus, Search, Settings2, ShieldCheck, SlidersHorizontal,
   Sparkles, Target, Users, X
 } from "lucide-react";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState, type ReactNode } from "react";
 
 type ProjectStatus = "On Track" | "At Risk" | "Delayed" | "Completed";
 type Project = {
@@ -327,7 +327,7 @@ export default function Home() {
   );
 }
 
-function Kpi({label,value,detail,icon,color,ink,trend,trendType}:{label:string;value:string;detail:string;icon:React.ReactNode;color:string;ink:string;trend:string;trendType:"positive"|"warning"|"negative"}) {
+function Kpi({label,value,detail,icon,color,ink,trend,trendType}:{label:string;value:string;detail:string;icon:ReactNode;color:string;ink:string;trend:string;trendType:"positive"|"warning"|"negative"}) {
   return <div className="kpi-card">
     <div className="kpi-top"><span className="kpi-label">{label}</span><span className="kpi-icon" style={{background:color,color:ink}}>{icon}</span></div>
     <div className="kpi-value">{value}</div>
