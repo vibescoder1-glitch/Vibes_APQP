@@ -1,0 +1,7 @@
+import { requireUser,writeAudit } from "@/lib/auth";
+import { query } from "@/lib/db";
+import { hash } from "bcryptjs";
+import { z } from "zod";
+export async function GET(){const auth=await requireUser(["ADMIN"]);if(auth.response)return auth.response;try{const r=await query("SELECT id,email,full_name,role,active,created_at,updated_at FROM app_users ORDER BY full_name");return Response.json({users:r.rows});}catch{return Response.json({error:"Could not load users"},{status:503});}}
+const schema=z.object({email:z.string().email().max(254),fullName:z.string().trim().min(2).max(160),password:z.string().min(12).max(200),role:z.enum(["ADMIN","APQP_MANAGER","QUALITY_ENGINEER","ENGINEER","VIEWER"])});
+export async function POST(request:Request){const auth=await requireUser(["ADMIN"]);if(auth.response)return auth.response;try{const b=schema.parse(await request.json());const passwordHash=await hash(b.password,12);const r=await query("INSERT INTO app_users(email,full_name,password_hash,role) VALUES(lower($1),$2,$3,$4) RETURNING id,email,full_name,role,active,created_at",[b.email,b.fullName,passwordHash,b.role]);await writeAudit(auth.user!.id,null,"USER",r.rows[0].id,"CREATE",null,{email:b.email,role:b.role});return Response.json({user:r.rows[0]},{status:201});}catch(e){if(e instanceof z.ZodError)return Response.json({error:"Invalid user details",details:e.flatten()},{status:400});return Response.json({error:"Could not create user. Email may already exist."},{status:409});}}
