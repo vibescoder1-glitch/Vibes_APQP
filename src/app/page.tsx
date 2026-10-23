@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { FormEvent, useMemo, useState, type ReactNode } from "react";
 import PhasePlanning from "./phase-planning";
+import WorkspaceModule from "./workspace-modules";
 
 type ProjectStatus = "On Track" | "At Risk" | "Delayed" | "Completed";
 type Project = {
@@ -202,7 +203,7 @@ export default function Home() {
             </div>
           )}
 
-          <div className="filter-row">
+          {(activeNav === "Overview" || activeNav === "APQP Projects") && <>\n          <div className="filter-row">
             <div className="filter-chip"><SlidersHorizontal size={13}/><strong>Filters</strong></div>
             <label className="filter-chip"><Filter size={13}/><select aria-label="Status filter" value={statusFilter} onChange={e=>setStatusFilter(e.target.value)} style={{border:0,outline:0,background:"transparent",color:"#56677f",fontSize:11}}><option>All statuses</option><option>On Track</option><option>At Risk</option><option>Delayed</option><option>Completed</option></select></label>
             <label className="filter-chip"><Users size={13}/><select aria-label="Plant filter" value={plantFilter} onChange={e=>setPlantFilter(e.target.value)} style={{border:0,outline:0,background:"transparent",color:"#56677f",fontSize:11}}><option>All plants</option><option>Plant 1</option><option>Plant 2</option><option>Plant 3</option></select></label>
@@ -306,7 +307,7 @@ export default function Home() {
             </section>
           </div>
 
-          <div className="footer-note"><AlertCircle size={14}/> Demo interface with illustrative records only. No authentication, database persistence, or approved quality workflows are enabled yet.</div>
+          <div className="footer-note"><AlertCircle size={14}/> Demo interface with illustrative records only. No authentication, database persistence, or approved quality workflows are enabled yet.</div>\n          </>}\n          {activeNav === "Phase Planning" && <PhasePlanning />}\n          {![ "Overview", "APQP Projects", "Phase Planning" ].includes(activeNav) && <WorkspaceModule activeNav={activeNav} onNotify={notify} />}\n
         </div>
       </main>
 
