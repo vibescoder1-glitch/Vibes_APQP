@@ -2,7 +2,7 @@
 
 An integrated APQP (Advanced Product Quality Planning) and NPD (New Product Development) workspace for automotive manufacturing, initially tailored for rubber components and mold manufacturing.
 
-> **Project status:** Foundation / planning stage. This repository currently establishes the product scope and implementation direction; it is not yet a production-ready quality-management system.
+> **Project status:** Early UI MVP. A responsive demo dashboard and project list are implemented. Authentication, persisted database records, controlled quality workflows, and production deployment are still pending.
 
 ## Objectives
 
@@ -33,7 +33,7 @@ An integrated APQP (Advanced Product Quality Planning) and NPD (New Product Deve
 - **Validation and tests:** schema validation, unit tests, integration tests, and end-to-end tests
 - **Deployment:** HTTPS-enabled hosting, protected environment secrets, automated checks, backups, and monitoring
 
-Stack details can be finalized during the first implementation milestone.
+The initial UI uses Next.js, React, TypeScript, and Lucide icons. The database, authentication, file storage, and production API are planned but not wired into the current MVP.
 
 ## Initial delivery milestones
 
@@ -77,7 +77,18 @@ The application is a workflow and record-management aid. Before operational use,
 
 ## Local development
 
-The runnable application and its exact commands will be documented once the framework and package structure are committed. Never commit credentials or production customer data. Keep secrets in environment variables or the deployment platform's secret store.
+Prerequisites: Node.js 20.9+ and npm.
+
+```bash
+git clone https://github.com/vibescoder1-glitch/Vibes_APQP.git
+cd Vibes_APQP
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`. Available scripts: `npm run dev`, `npm run build`, `npm run start`, `npm run lint`, and `npm run typecheck`. The GitHub Actions workflow runs type-checking and a production build on pushes and pull requests to `main`.
+
+The current dashboard uses illustrative sample records held in browser memory. Creating a project, filters, CSV export, and action-item toggles are demo interactions; records reset on refresh. Do not enter real customer, supplier, product, or confidential manufacturing data. Never commit credentials or production data. Keep secrets in environment variables or the deployment platform's secret store.
 
 ## Security baseline
 
