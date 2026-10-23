@@ -8,6 +8,7 @@ import {
   Sparkles, Target, Users, X
 } from "lucide-react";
 import { FormEvent, useMemo, useState, type ReactNode } from "react";
+import PhasePlanning from "./phase-planning";
 
 type ProjectStatus = "On Track" | "At Risk" | "Delayed" | "Completed";
 type Project = {
@@ -192,7 +193,7 @@ export default function Home() {
             </div>
           </div>
 
-          {activeNav !== "Overview" && activeNav !== "APQP Projects" && (
+          {activeNav === "Phase Planning" ? <PhasePlanning /> : null}\n\n          {activeNav !== "Overview" && activeNav !== "APQP Projects" && activeNav !== "Phase Planning" && (
             <div className="panel" style={{padding:25,marginBottom:20}}>
               <div style={{display:"flex",gap:12,alignItems:"flex-start"}}>
                 <div className="kpi-icon" style={{background:"#edf3ff",color:"#3268e8"}}><Sparkles size={18}/></div>
