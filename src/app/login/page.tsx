@@ -1,0 +1,9 @@
+"use client";
+import { FormEvent,useState } from "react";
+import { useRouter } from "next/navigation";
+import { LockKeyhole,LogIn } from "lucide-react";
+export default function LoginPage(){
+ const router=useRouter();const [email,setEmail]=useState("");const [password,setPassword]=useState("");const [error,setError]=useState("");const [busy,setBusy]=useState(false);
+ async function submit(e:FormEvent){e.preventDefault();setBusy(true);setError("");try{const r=await fetch("/api/auth/login",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({email,password})});const data=await r.json();if(!r.ok)throw new Error(data.error||"Sign in failed");router.push("/");router.refresh();}catch(e){setError(e instanceof Error?e.message:"Sign in failed");}finally{setBusy(false);}}
+ return <main className="login-screen"><form className="login-card" onSubmit={submit}><div className="brand-mark login-mark">V</div><div className="eyebrow">VIBES COMPONENTS</div><h1>APQP workspace</h1><p className="subtitle">Sign in with your authorized account to access project records and protected APIs.</p><label className="field full">Work email<input type="email" autoComplete="username" required value={email} onChange={e=>setEmail(e.target.value)} placeholder="name@company.com"/></label><label className="field full">Password<input type="password" autoComplete="current-password" required value={password} onChange={e=>setPassword(e.target.value)} placeholder="Enter password"/></label>{error&&<p className="login-error" role="alert">{error}</p>}<button className="btn btn-primary login-submit" disabled={busy} type="submit"><LogIn size={15}/>{busy?"Signing in…":"Sign in"}</button><div className="login-foot"><LockKeyhole size={13}/> Session uses an HTTP-only signed cookie. Never share your password.</div></form></main>;
+}
