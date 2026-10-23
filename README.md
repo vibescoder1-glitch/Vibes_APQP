@@ -2,7 +2,7 @@
 
 An integrated APQP (Advanced Product Quality Planning) and NPD (New Product Development) workspace for automotive manufacturing, initially tailored for rubber components and mold manufacturing.
 
-> **Project status:** Early UI MVP. A responsive demo dashboard and project list are implemented. Authentication, persisted database records, controlled quality workflows, and production deployment are still pending.
+> **Project status:** Expanded MVP in active development. Dedicated UI workspaces and authenticated API/database foundations are present. Full frontend-to-database integration, private file storage, automated tests, and production validation remain outstanding.
 
 ## Objectives
 
@@ -33,7 +33,16 @@ An integrated APQP (Advanced Product Quality Planning) and NPD (New Product Deve
 - **Validation and tests:** schema validation, unit tests, integration tests, and end-to-end tests
 - **Deployment:** HTTPS-enabled hosting, protected environment secrets, automated checks, backups, and monitoring
 
-The initial UI uses Next.js, React, TypeScript, and Lucide icons. The database, authentication, file storage, and production API are planned but not wired into the current MVP.
+The application uses Next.js, React, TypeScript, PostgreSQL, signed HTTP-only session cookies, password hashing, Zod request validation, and role-checked API routes. The current workspace UI still contains sample state in several modules; use the API endpoints for database-backed records after configuring the database. Document metadata is supported, but secure binary file storage and download delivery are not implemented.
+
+## Implemented foundations
+
+- PostgreSQL schema for users, customers, plants, components, projects, phases, deliverables, controlled document metadata, quality records, PPAP submissions/items, actions, project members, reviews, and audit events.
+- Login, logout, current-session, and administrator-only user management APIs.
+- Project list/create/update/archive APIs that initialize five phases and starter deliverables.
+- Phase readiness and gate approval checks, deliverable APIs, versioned quality-record creation, role-gated quality-record approval, PPAP checklist APIs, document metadata APIs, action-item APIs, project audit history, and portfolio reporting endpoint.
+- Dedicated interactive UI areas for phase planning, quality record register, document metadata register, PPAP checklist, reporting, and system settings.
+- Initial administrator bootstrap command: `npm run create-admin` (requires database environment variables and an empty admin table).
 
 ## Initial delivery milestones
 
@@ -88,7 +97,7 @@ npm run dev
 
 Open `http://localhost:3000`. Available scripts: `npm run dev`, `npm run build`, `npm run start`, `npm run lint`, and `npm run typecheck`. The GitHub Actions workflow runs type-checking and a production build on pushes and pull requests to `main`.
 
-The current dashboard uses illustrative sample records held in browser memory. Creating a project, filters, CSV export, and action-item toggles are demo interactions; records reset on refresh. Do not enter real customer, supplier, product, or confidential manufacturing data. Never commit credentials or production data. Keep secrets in environment variables or the deployment platform's secret store.
+Several UI workspaces still use illustrative sample records held in browser memory. Not every screen is connected to the database APIs yet; demo edits reset on refresh. Do not enter real customer, supplier, product, or confidential manufacturing data. Never commit credentials or production data. Keep secrets in environment variables or the deployment platform's secret store.
 
 ## Security baseline
 
